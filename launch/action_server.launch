@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- send two_lwr.urdf.xml to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find two_lwr_defs)/robots/two_lwr.urdf.xml'" />
+  
+  <node name="pthead" pkg="pthead" type="pthead"/>
+  <node name="state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  
+  <node name="head_action" pkg="velma_head_action" type="head_action" output="screen" >
+    <rosparam>
+      success_angle_threshold: 0.1
+    </rosparam>
+  </node>
+</launch>
