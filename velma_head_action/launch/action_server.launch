@@ -6,7 +6,7 @@
   <node name="pthead" pkg="pthead" type="pthead"/>
   <node name="state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   
-  <node name="head_action" pkg="velma_head_action" type="head_action" output="screen" >
+  <node name="head_action_server" pkg="velma_head_action" type="head_action_server" output="screen" >
     <rosparam>
       success_angle_threshold: 0.1
     </rosparam>

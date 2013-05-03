@@ -19,8 +19,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_genmsg()
 #rosbuild_gensrv()
 
-rosbuild_add_executable(head_action src/head_action.cpp)
-#rosbuild_add_executable(head_action src/point_frame.cpp)
+rosbuild_add_executable(head_action_server src/head_action_server.cpp)
+#rosbuild_add_executable(head_action_server src/point_frame.cpp)
 
 rosbuild_add_executable(point_head src/point_head.cpp)
 
