@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	
 	char inp;
 	float dx = 0, dy = 0;
-	bool synchronized = false;
+	//bool synchronized = false;
 	// get the console in raw mode
 	int kfd = 0;
 	struct termios cooked, raw;

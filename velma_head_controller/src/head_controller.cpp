@@ -14,7 +14,7 @@
 #include "psdefs.h"
 
 #define MOVE_TO_CENTER_VELOCITY	1.0 //[rad/s]
-#define MAX_TRAJECTORY_VELOCITY	2.0 //[rad/s]
+#define MAX_TRAJECTORY_VELOCITY	1.5 //[rad/s]
 #define SPIN_FREQ				100
 
 std::string nodeName = "pthead";
@@ -172,6 +172,8 @@ int main(int argc, char **argv)
 			// Calculate desired trajectory point
 			for (unsigned int j = 0; j < number_of_joints_; j++){
 				q[j] = vel_profile_[j].Pos(time_ * dt_);
+				qd[j] = vel_profile_[j].Vel(time_ * dt_);
+				qdd[j] = vel_profile_[j].Acc(time_ * dt_);
 			}
 			// And command it to motion controllers
 			ptp->setJointPositionWithSpeed(q[0], q[1], MAX_TRAJECTORY_VELOCITY, MAX_TRAJECTORY_VELOCITY);

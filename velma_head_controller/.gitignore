@@ -6,4 +6,5 @@ include
 .project
 .cproject
 .pydevproject
+cmake_install.cmake
 
