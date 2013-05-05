@@ -3,7 +3,7 @@
   <!-- send two_lwr.urdf.xml to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find two_lwr_defs)/robots/two_lwr.urdf.xml'" />
   
-  <node name="pthead" pkg="pthead" type="pthead"/>
+  <node name="head_controller" pkg="velma_head_controller" type="head_controller"/>
   <node name="state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   
   <node name="head_action_server" pkg="velma_head_action" type="head_action_server" output="screen" >

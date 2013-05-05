@@ -1,0 +1,3 @@
+[submodule "velma_head_controller/src/ptproxy"]
+	path = velma_head_controller/src/ptproxy
+	url = git://github.com/mwalecki/ptproxy.git
