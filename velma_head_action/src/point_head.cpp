@@ -1,10 +1,10 @@
 #include <ros/ros.h>
 
 #include <actionlib/client/simple_action_client.h>
-#include <pr2_controllers_msgs/PointHeadAction.h>
+#include <control_msgs/PointHeadAction.h>
 
 // Our Action interface type, provided as a typedef for convenience
-typedef actionlib::SimpleActionClient<pr2_controllers_msgs::PointHeadAction> PointHeadClient;
+typedef actionlib::SimpleActionClient<control_msgs::PointHeadAction> PointHeadClient;
 
 class RobotHead
 {
@@ -34,7 +34,7 @@ public:
   void lookAt(std::string frame_id, double x, double y, double z)
   {
     //the goal message we will be sending
-    pr2_controllers_msgs::PointHeadGoal goal;
+    control_msgs::PointHeadGoal goal;
 
     //the target point, expressed in the requested frame
     geometry_msgs::PointStamped point;

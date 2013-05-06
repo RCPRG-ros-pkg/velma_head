@@ -42,14 +42,14 @@
 
 #include <geometry_msgs/PointStamped.h>
 #include <trajectory_msgs/JointTrajectory.h>
-#include <pr2_controllers_msgs/PointHeadAction.h>
-#include <pr2_controllers_msgs/QueryTrajectoryState.h>
-#include <pr2_controllers_msgs/JointTrajectoryControllerState.h>
+#include <control_msgs/PointHeadAction.h>
+#include <control_msgs/QueryTrajectoryState.h>
+#include <control_msgs/JointTrajectoryControllerState.h>
 
 class ControlHead
 {
 private:
-  typedef actionlib::ActionServer<pr2_controllers_msgs::PointHeadAction> PHAS;
+  typedef actionlib::ActionServer<control_msgs::PointHeadAction> PHAS;
   typedef PHAS::GoalHandle GoalHandle;
 public:
   ControlHead(const ros::NodeHandle &n)
@@ -78,7 +78,7 @@ public:
     sub_controller_state_ =
       node_.subscribe("state", 1, &ControlHead::controllerStateCB, this);
     cli_query_traj_ =
-      node_.serviceClient<pr2_controllers_msgs::QueryTrajectoryState>("query_state");
+      node_.serviceClient<control_msgs::QueryTrajectoryState>("query_state");
 
     watchdog_timer_ = node_.createTimer(ros::Duration(1.0), &ControlHead::watchdog, this);
   }
@@ -142,7 +142,7 @@ public:
     }
 
     // Queries where the movement should start.
-    pr2_controllers_msgs::QueryTrajectoryState traj_state;
+    control_msgs::QueryTrajectoryState traj_state;
     traj_state.request.time = ros::Time::now() + ros::Duration(0.01);
     if (!cli_query_traj_.call(traj_state))
     {
@@ -271,8 +271,8 @@ private:
     }
   }
 
-  pr2_controllers_msgs::JointTrajectoryControllerStateConstPtr last_controller_state_;
-  void controllerStateCB(const pr2_controllers_msgs::JointTrajectoryControllerStateConstPtr &msg)
+  control_msgs::JointTrajectoryControllerStateConstPtr last_controller_state_;
+  void controllerStateCB(const control_msgs::JointTrajectoryControllerStateConstPtr &msg)
   {
     last_controller_state_ = msg;
     ros::Time now = ros::Time::now();
@@ -288,7 +288,7 @@ private:
       tf_.waitForTransform(pan_parent_, tilt_link_, msg->header.stamp, ros::Duration(1.0));
       tf_.transformPoint(pan_parent_, origin, origin);
       tf_.transformPoint(pan_parent_, forward, forward);
-      pr2_controllers_msgs::PointHeadFeedback feedback;
+      control_msgs::PointHeadFeedback feedback;
       feedback.pointing_angle_error =
         (forward - origin).angle(target_in_pan_ - origin);
       active_goal_.publishFeedback(feedback);

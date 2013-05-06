@@ -4,8 +4,8 @@
 #include "sensor_msgs/JointState.h"
 #include "trajectory_msgs/JointTrajectory.h"
 #include "trajectory_msgs/JointTrajectoryPoint.h"
-#include <pr2_controllers_msgs/JointTrajectoryControllerState.h>
-#include <pr2_controllers_msgs/QueryTrajectoryState.h>
+#include <control_msgs/JointTrajectoryControllerState.h>
+#include <control_msgs/QueryTrajectoryState.h>
 #include "velocityprofile_spline.hpp"
 #include <stdio.h>
 #include <cstring>
@@ -36,7 +36,7 @@ std::vector<double> q, qd, qdd;
 std::vector<double> meas_q, meas_qd, prev_meas_q;
 
 sensor_msgs::JointState joint_state_msg;
-pr2_controllers_msgs::JointTrajectoryControllerState trajectory_state_msg;
+control_msgs::JointTrajectoryControllerState trajectory_state_msg;
 
 /**
 * 
@@ -73,8 +73,8 @@ void joyCallback(const sensor_msgs::Joy& msg) {
 *
 */
 bool queryTrajectoryStateService(
-	pr2_controllers_msgs::QueryTrajectoryState::Request &req,
-	pr2_controllers_msgs::QueryTrajectoryState::Response &resp)
+	control_msgs::QueryTrajectoryState::Request &req,
+	control_msgs::QueryTrajectoryState::Response &resp)
 {
 	// Determines which segment of the trajectory to use
 //	int seg = -1;
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 	ros::Publisher js_pub = n.advertise<sensor_msgs::JointState>("joint_states", 10);
 	ros::Subscriber joy_sub = n.subscribe("psmove_out", 1, &joyCallback);
 	ros::ServiceServer query_state_srv = n.advertiseService("query_state", &queryTrajectoryStateService);
-	ros::Publisher c_state_pub = n.advertise<pr2_controllers_msgs::JointTrajectoryControllerState>("state", 10);
+	ros::Publisher c_state_pub = n.advertise<control_msgs::JointTrajectoryControllerState>("state", 10);
 	ros::Rate loop_rate(SPIN_FREQ);
 
 	joint_state_msg.name.resize(2);
