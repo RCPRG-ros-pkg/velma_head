@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="head_imu" pkg="velma_head_imu" type="head_imu" output="screen" >
+    <rosparam>
+      serial_port: "/dev/head_imu"
+    </rosparam>
+  </node>
+</launch>

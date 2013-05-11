@@ -1,0 +1,16 @@
+<package>
+  <description brief="velma_head_imu">
+
+     velma_head_imu
+
+  </description>
+  <author>Michal Walecki</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/velma_head_imu</url>
+  <depend package="sensor_msgs"/>
+  <depend package="roscpp"/>
+
+</package>
+
+
