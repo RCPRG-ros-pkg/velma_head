@@ -295,8 +295,10 @@ int main(int argc, char **argv)
 
 				// Building joint states message
 				joint_state_msg.header.stamp = now;
-				joint_state_msg.position[0] = rx;
-				joint_state_msg.position[1] = ry;
+				joint_state_msg.position[0] = meas_q[0];
+				joint_state_msg.position[1] = meas_q[1];
+				joint_state_msg.velocity[0] = meas_qd[0];
+				joint_state_msg.velocity[1] = meas_qd[1];
 				js_pub.publish(joint_state_msg);
 
 				// Building controller state message
