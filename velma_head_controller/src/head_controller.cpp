@@ -109,7 +109,8 @@ int main(int argc, char **argv)
 
 	ros::init(argc, argv, nodeName);
 	ros::NodeHandle n;
-    n.param("serial_port", serialPortName, std::string("/dev/ttyACM0"));
+	ros::NodeHandle ph("~");
+	ph.param("serial_port", serialPortName, std::string("/dev/ttyACM0"));
 
 	ros::Subscriber twist_sub = n.subscribe("head_vel", 1, &twistCallback);
 	ros::Subscriber traj_sub = n.subscribe("command", 1, &trajectoryCallback);
@@ -272,7 +273,7 @@ int main(int argc, char **argv)
 			spinCnt ++;
 		}
 		else if(spinCnt == 3) {
-			if(ptp->isSynchronized() == 0)
+			if(ptp->isSynchronized() == false)
 			// If head is not synchronized, prepare synchronization request
 			ptp->startSynchronization();
 			spinCnt ++;

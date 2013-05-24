@@ -66,9 +66,9 @@ public:
     while (ros::ok() && ++count <= n )
     {
       //Looks at a point forward (x=5m), slightly right (y=-1m), and 1m up
-      lookAt("base_link", 5.0, -1.0, 1);
+      lookAt("torso_link", 5.0, -1.0, 1);
       //Looks at a point forward (x=5m), slightly left (y=1m), and 1m up
-      lookAt("base_link", 5.0, 1.0, 1);
+      lookAt("torso_link", 5.0, 1.0, 1);
     }
   }
 
@@ -78,15 +78,15 @@ public:
     while (ros::ok())
     {
         //Looks through the window
-        lookAt("base_link", 0.5, -2.0, 1.0);
+        lookAt("torso_link", 0.5, -2.0, 1.0);
         //Looks at Slon's desk
-        lookAt("base_link", 2.5, 2.5, 0);
+        lookAt("torso_link", 2.5, 2.5, 0);
         //Looks at Yoyek's / Banan's desk
-        lookAt("base_link", 3.5, 0, 0);
+        lookAt("torso_link", 3.5, 0, 0);
         //Looks at Wacek's desk
-        lookAt("base_link", 5.5, 2.5, 0);
+        lookAt("torso_link", 5.5, 2.5, 0);
         //Looks at the door
-        lookAt("base_link", 1.5, 3.0, 0.5);
+        lookAt("torso_link", 1.5, 3.0, 0.5);
 
         break;
     }

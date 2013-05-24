@@ -6,7 +6,11 @@
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find two_lwr_defs)/robots/two_lwr.urdf.xml'" />
 -->
   
-  <node name="head_controller" pkg="velma_head_controller" type="head_controller"/>
+  <node name="head_controller" pkg="velma_head_controller" type="head_controller">
+    <rosparam>
+      serial_port: can0
+    </rosparam>
+  </node>
   <node name="state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   
   <node name="head_action_server" pkg="velma_head_action" type="head_action_server" output="screen" >

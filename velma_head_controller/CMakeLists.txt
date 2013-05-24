@@ -25,7 +25,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 rosbuild_add_library(PTProxy	src/ptproxy/PTProxy.cpp
 								src/ptproxy/nfv2_config.c
 								src/ptproxy/serialcomm/serialcomm.cpp
-								src/ptproxy/nf/nfv2.c)
+								src/ptproxy/nf/nfv2.c
+								src/ptproxy/can/CANDev.cpp
+								src/ptproxy/can/MotorController.cpp)
 rosbuild_add_library(VelocityProfileSpline	src/velocityprofile_spline.cpp)
 
 #target_link_libraries(${PROJECT_NAME} another_library)
