@@ -17,7 +17,7 @@ public:
   {
     //Initialize the client for the Action interface to the head controller
 //    point_head_client_ = new PointHeadClient("/head_traj_controller/point_head_action", true);
-	point_head_client_ = new PointHeadClient("point_head_action", true);
+	point_head_client_ = new PointHeadClient("head_controller/point_head_action", true);
 
     //wait for head controller action server to come up 
     while(!point_head_client_->waitForServer(ros::Duration(5.0))){
@@ -44,7 +44,7 @@ public:
 
     //we are pointing the high-def camera frame 
     //(pointing_axis defaults to X-axis)
-    goal.pointing_frame = "high_def_frame";
+    goal.pointing_frame = "stereo_left_link";
 
     //take at least 0.5 seconds to get there
     goal.min_duration = ros::Duration(0.5);

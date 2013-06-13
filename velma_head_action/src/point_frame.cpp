@@ -29,11 +29,9 @@
 #include <urdf/model.h>
 
 #include <trajectory_msgs/JointTrajectory.h>
-#include <pr2_controllers_msgs/PointHeadAction.h>
-#include <pr2_controllers_msgs/QueryTrajectoryState.h>
-#include <pr2_controllers_msgs/JointTrajectoryControllerState.h>
-
-
+#include <control_msgs/PointHeadAction.h>
+#include <control_msgs/JointTrajectoryControllerState.h>
+#include <control_msgs/QueryTrajectoryState.h>
 void printVector3(const char * label, tf::Vector3 v)
 {
 //  printf("%s % 7.3f % 7.3f % 7.3f\n", label, v.x(), v.y(), v.z() );
@@ -43,7 +41,7 @@ void printVector3(const char * label, tf::Vector3 v)
 class ControlHead
 {
 private:
-  typedef actionlib::ActionServer<pr2_controllers_msgs::PointHeadAction> PHAS;
+  typedef actionlib::ActionServer<control_msgs::PointHeadAction> PHAS;
   typedef PHAS::GoalHandle GoalHandle;
 
   std::string node_name_;
@@ -106,7 +104,7 @@ public:
     sub_controller_state_ =
       nh_.subscribe("state", 1, &ControlHead::controllerStateCB, this);
     cli_query_traj_ =
-        nh_.serviceClient<pr2_controllers_msgs::QueryTrajectoryState>("/head_traj_controller/query_state");
+        nh_.serviceClient<control_msgs::QueryTrajectoryState>("query_state");
 
     // Should only ever happen on first call... move to constructor?
     if(tree_.getNrOfJoints() == 0)
@@ -252,7 +250,7 @@ public:
     KDL::JntArray jnt_pos(joints), jnt_eff(joints);
     KDL::Jacobian jacobian(joints);
 
-    pr2_controllers_msgs::QueryTrajectoryState traj_state;
+    control_msgs::QueryTrajectoryState traj_state;
     traj_state.request.time = ros::Time::now() + ros::Duration(0.01);
     if (!cli_query_traj_.call(traj_state))
     {
@@ -447,8 +445,8 @@ public:
     }
   }
 
-  pr2_controllers_msgs::JointTrajectoryControllerStateConstPtr last_controller_state_;
-  void controllerStateCB(const pr2_controllers_msgs::JointTrajectoryControllerStateConstPtr &msg)
+  control_msgs::JointTrajectoryControllerStateConstPtr last_controller_state_;
+  void controllerStateCB(const control_msgs::JointTrajectoryControllerStateConstPtr &msg)
   {
     last_controller_state_ = msg;
     ros::Time now = ros::Time::now();
@@ -475,7 +473,7 @@ public:
       target_from_frame.normalize();
       tf::Vector3 current_in_frame = frame_in_root.getBasis().inverse()*target_from_frame;
 
-      pr2_controllers_msgs::PointHeadFeedback feedback;
+      control_msgs::PointHeadFeedback feedback;
       feedback.pointing_angle_error = current_in_frame.angle(axis_in_frame);
       active_goal_.publishFeedback(feedback);
 
