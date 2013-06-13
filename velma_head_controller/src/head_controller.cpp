@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 
 	ros::Subscriber twist_sub = n.subscribe("head_vel", 1, &twistCallback);
 	ros::Subscriber traj_sub = n.subscribe("command", 1, &trajectoryCallback);
-	ros::Publisher js_pub = n.advertise<sensor_msgs::JointState>("joint_states", 10);
+	ros::Publisher js_pub = n.advertise<sensor_msgs::JointState>("/joint_states", 10);
 	ros::Subscriber joy_sub = n.subscribe("psmove_out", 1, &joyCallback);
 	ros::ServiceServer query_state_srv = n.advertiseService("query_state", &queryTrajectoryStateService);
 	ros::Publisher c_state_pub = n.advertise<control_msgs::JointTrajectoryControllerState>("state", 10);
